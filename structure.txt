@@ -1,0 +1,44 @@
+src/
+├── components/        # Reusable, styled UI elements (Button, IngredientCard, etc.)
+│   ├── Button.jsx
+│   └── IngredientSelector.jsx
+│
+├── features/          # Core app features (Alchemy, Inventory, Results)
+│   ├── AlchemyCalculator.jsx    # Main calculator UI + interactions
+│   └── PotionResults.jsx        # Display matched potions
+│
+├── lib/               # Pure logic (can be unit-tested separately)
+│   ├── alchemyEngine.js         # Finds potion matches, handles alchemy logic
+│   └── ingredientsData.js      # Holds or fetches ingredient-effect data
+│
+├── context/           # (Optional) Global app state (if needed)
+│   └── InventoryContext.jsx
+│
+├── ui/                # Shadcn/UI components or design-specific elements
+│   └── button.jsx
+│
+├── App.jsx            # Wraps features together, handles page-level layout
+├── main.jsx           # React entry point
+└── index.css          # Global styles
+src/
+├── components/        # Reusable, styled UI elements (Button, IngredientCard, etc.)
+│   ├── Button.jsx
+│   └── IngredientSelector.jsx
+│
+├── features/          # Core app features (Alchemy, Inventory, Results)
+│   ├── AlchemyCalculator.jsx    # Main calculator UI + interactions
+│   └── PotionResults.jsx        # Display matched potions
+│
+├── lib/               # Pure logic (can be unit-tested separately)
+│   ├── alchemyEngine.js         # Finds potion matches, handles alchemy logic
+│   └── ingredientsData.js      # Holds or fetches ingredient-effect data
+│
+├── context/           # (Optional) Global app state (if needed)
+│   └── InventoryContext.jsx
+│
+├── ui/                # Shadcn/UI components or design-specific elements
+│   └── button.jsx
+│
+├── App.jsx            # Wraps features together, handles page-level layout
+├── main.jsx           # React entry point
+└── index.css          # Global styles
