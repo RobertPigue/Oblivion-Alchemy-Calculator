@@ -77,6 +77,36 @@ export function findPotions(inventory, skill, skillMaps) {
   // Convert back to arrays of strings
   return Array.from(validGroups).map(JSON.parse);
 }
+//filtered version
+export function shareEffectWithinSkillFiltered(ing1, ing2, skill, desiredEffects) {
+  const ing1Effects = getEffectsForIngredient(ing1, skill);
+  const ing2Effects = getEffectsForIngredient(ing2, skill);
+
+  return ing1Effects.some(effect => ing2Effects.includes(effect) && desiredEffects.includes(effect));
+}
+
+// Creates filtered mapping based on desired effects
+export function createFilteredMapping(skill, desiredEffects) {
+  const map = {};
+
+  for (const ingredient in INGREDIENTS) {
+    map[ingredient] = new Set();
+
+    const effects = getEffectsForIngredient(ingredient, skill);
+
+    effects.forEach((effect) => {
+      if (!desiredEffects.includes(effect)) return;  // Skip effects not in desired
+      const others = EFFECTS[effect] || [];
+      others.forEach((otherIng) => {
+        if (otherIng !== ingredient && shareEffectWithinSkillFiltered(ingredient, otherIng, skill, desiredEffects)) {
+          map[ingredient].add(otherIng);
+        }
+      });
+    });
+  }
+
+  return map;
+}
 export function labelPotions(potions) {
   const labeled = {};
 
