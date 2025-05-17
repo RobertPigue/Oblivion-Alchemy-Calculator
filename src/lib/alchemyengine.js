@@ -77,3 +77,45 @@ export function findPotions(inventory, skill, skillMaps) {
   // Convert back to arrays of strings
   return Array.from(validGroups).map(JSON.parse);
 }
+export function labelPotions(potions) {
+  const labeled = {};
+
+  potions.forEach((potion) => {
+    const effectCounts = {};
+
+    // Count effects from all ingredients
+    potion.forEach((ingredient) => {
+      const effects = INGREDIENTS[ingredient] || [];
+      effects.forEach((effect) => {
+        effectCounts[effect] = (effectCounts[effect] || 0) + 1;
+      });
+    });
+
+    // Gather effects that appear in at least two ingredients
+    const sharedEffects = Object.keys(effectCounts).filter(
+      (effect) => effectCounts[effect] >= 2
+    );
+
+    const numberOfEffects = sharedEffects.length;
+    const maxAllowedIngredients = numberOfEffects + 1;
+
+    // Filter out oversized recipes
+    if (potion.length > maxAllowedIngredients) return;
+
+    const sortedEffects = sharedEffects.sort();
+    const label = sortedEffects.length > 0
+      ? `${sortedEffects.join("+")} Potion`
+      : "Unnamed Potion";
+
+    if (!labeled[label]) {
+      labeled[label] = [];
+    }
+    labeled[label].push(potion);
+  });
+  //sort by ingredient count within each potion
+  for (const label in labeled) {
+    labeled[label].sort((a, b) => a.length - b.length);
+  }
+
+  return labeled;
+}

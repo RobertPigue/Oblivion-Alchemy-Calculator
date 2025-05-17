@@ -1,16 +1,10 @@
 import { useState } from "react";
 import { Button } from "@/ui/button";  // If you have shadcn button
-
+import { INGREDIENTS, EFFECTS } from "@/lib/IngredientData";
+//import { EFFECTS, INGREDIENTS } from "../lib/IngredientData";
 // Example list, replace with your real data or import from lib
 
-const INGREDIENTS = [
-  "Alkanet Flower",
-  "Aloe Vera Leaves",
-  "Ambrosia",
-  "Apple",
-  "Arrowroot",
-  // ... more ingredients
-];
+const Selectable_INGREDIENTS = Object.keys(INGREDIENTS)
 
 export default function IngredientSelector({ onSelectionChange }) {
   const [inventory, setInventory] = useState({});
@@ -25,7 +19,7 @@ export default function IngredientSelector({ onSelectionChange }) {
     onSelectionChange(newInventory);
   };
 
-  const filteredIngredients = INGREDIENTS.filter((ingredient) =>
+  const filteredIngredients = Selectable_INGREDIENTS.filter((ingredient) =>
     ingredient.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
