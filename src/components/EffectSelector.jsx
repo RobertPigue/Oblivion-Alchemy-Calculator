@@ -20,33 +20,61 @@ export default function EffectSelector({ onSelectionChange }) {
 
     // -------------- UI -----------------
     return (
-        <div className="space-y-2 border p-4 rounded mb-4">
-            <h2 className="text-xl mb-2">Filter by Desired Effects:</h2>
+  <div className="space-y-2 border p-4 rounded mb-4">
+    <h2 className="text-xl mb-2">Filter by Desired Effects:</h2>
 
-            <div className="flex flex-col gap-2">
-                {allEffects.map((effect) => {
-                    const selected = selectedEffects.includes(effect);
+    <div className="flex flex-col gap-2">
+      {allEffects.map((effect) => {
+        const selected = selectedEffects.includes(effect);
 
-                    return (
-                        <button
-                            key={effect}
-                            onClick={() => toggleEffect(effect)}
-                            /*  
-                               border-2   – consistent 2 px width for everyone  
-                               outline-none focus:ring-0 – kill default focus ring  
-                            */
-                            className={`effect-button p-2 rounded text-left transition border-3 outline-none focus:ring-0
-  ${selected
-    ? "bg-blue-600 !text-red !border-white"
-    : "bg-gray-800 !text-orange-100 !border-gray-600 hover:bg-gray-700"
-  }`}
-                        >
-                            {selected && <span className="mr-1">✓</span>}
-                            {effect}
-                        </button>
-                    );
-                })}
-            </div>
-        </div>
-    );
+        return (
+          <button
+            key={effect}
+            onClick={() => toggleEffect(effect)}
+            style={{
+              backgroundColor: selected ? '#C2B59B' : '#E6D8C3',
+              color: '#3B2F2F',
+              border: '1px solid #3B2F2F',
+              padding: '0.5rem 1rem',
+              borderRadius: '0.25rem',
+              textAlign: 'left',
+              width: '100%',
+              transition: 'background-color 0.2s, border-color 0.2s',
+              fontWeight: 'bold',
+              display: 'flex',
+              alignItems: 'center',
+            }}
+          >
+            {selected ? (
+              <img
+                src="/Oblivion-Checkmark.png"
+                alt="selected"
+                style={{
+                  width: '25px',
+                  height: '25px',
+                  marginRight: '0.25rem',
+                  position: 'relative',
+                  top: '2px',
+                }}
+              />
+            ) : (
+              <span
+                style={{
+                  display: 'inline-block',
+                  width: '25px',
+                  height: '25px',
+                  marginRight: '0.25rem',
+                  visibility: 'hidden',
+                }}
+              >
+                ✓
+              </span>
+            )}
+            {effect}
+          </button>
+        );
+      })}
+    </div>
+  </div>
+);
 }
