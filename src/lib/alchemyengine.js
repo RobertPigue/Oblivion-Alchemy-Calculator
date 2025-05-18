@@ -49,8 +49,10 @@ export function createMapping(skill) {
   return map;
 }
 //Based on ing maps, skill and inventory, find all combos that are potions
-export function findPotions(inventory, skill, skillMaps) {
-  const map = skillMaps[skill - 1];
+export function findPotions(inventory, skill, skillMaps, desiredEffects = []) {
+  const map = desiredEffects.length > 0
+    ? createFilteredMapping(skill, desiredEffects)
+    : skillMaps[skill - 1];
   const validGroups = new Set();
 
   function dfs(path, remainingDepth) {

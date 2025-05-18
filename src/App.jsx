@@ -17,10 +17,10 @@ export default function App() {
       Object.entries(inventory).filter(([_, qty]) => qty > 0)
     );
 
-    const potionsFound = findPotions(filteredInventory, 4, skillMaps);
+    const potionsFound = findPotions(filteredInventory, 4, skillMaps, selectedEffects);
     const labeled = labelPotions(potionsFound);
     setPotions(labeled);
-  }, [inventory]);
+  }, [inventory, selectedEffects]);
 
   return (
     <div className="p-4 space-y-6">
