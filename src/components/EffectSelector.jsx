@@ -6,6 +6,7 @@ const allEffects = Object.keys(EFFECTS);
 
 export default function EffectSelector({ onSelectionChange }) {
     const [selectedEffects, setSelectedEffects] = useState([]);
+    const [searchQuery, setSearchQuery] = useState("");
 
     const toggleEffect = (effect) => {
         const updated = selectedEffects.includes(effect)
@@ -17,63 +18,87 @@ export default function EffectSelector({ onSelectionChange }) {
         setSelectedEffects(updated);
         onSelectionChange(updated);
     };
+    const filteredEffects = allEffects.filter((effect) =>
+        effect.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
     // -------------- UI -----------------
     return (
-  <div className="space-y-2 border p-4 rounded mb-4">
-    <h2 className="text-xl mb-2">Filter by Desired Effects:</h2>
+  <div style={{ border: "1px solid #ccc", padding: "1rem", borderRadius: "0.5rem", marginBottom: "1rem" }}>
+    {/* Search Bar */}
+    <input
+      type="text"
+      placeholder="Search effects..."
+      value={searchQuery}
+      onChange={(e) => setSearchQuery(e.target.value)}
+      style={{
+        width: "80%",
+        padding: "0.4rem",
+        border: "1px solid #ccc",
+        borderRadius: "0.25rem",
+        marginBottom: "1rem",
+      }}
+    />
 
-    <div className="flex flex-col gap-2">
-      {allEffects.map((effect) => {
-        const selected = selectedEffects.includes(effect);
+    {/* Scrollable Effects List */}
+    <div style={{ maxHeight: "618px", overflowY: "auto", paddingRight: "0.5rem" }}>
+      {filteredEffects.length > 0 ? (
+        filteredEffects.map((effect) => {
+          const selected = selectedEffects.includes(effect);
 
-        return (
-          <button
-            key={effect}
-            onClick={() => toggleEffect(effect)}
-            style={{
-              backgroundColor: selected ? '#C2B59B' : '#E6D8C3',
-              color: '#3B2F2F',
-              border: '1px solid #3B2F2F',
-              padding: '0.5rem 1rem',
-              borderRadius: '0.25rem',
-              textAlign: 'left',
-              width: '100%',
-              transition: 'background-color 0.2s, border-color 0.2s',
-              fontWeight: 'bold',
-              display: 'flex',
-              alignItems: 'center',
-            }}
-          >
-            {selected ? (
-              <img
-                src="/Oblivion-Checkmark.png"
-                alt="selected"
-                style={{
-                  width: '25px',
-                  height: '25px',
-                  marginRight: '0.25rem',
-                  position: 'relative',
-                  top: '2px',
-                }}
-              />
-            ) : (
-              <span
-                style={{
-                  display: 'inline-block',
-                  width: '25px',
-                  height: '25px',
-                  marginRight: '0.25rem',
-                  visibility: 'hidden',
-                }}
-              >
-                ✓
-              </span>
-            )}
-            {effect}
-          </button>
-        );
-      })}
+          return (
+            <button
+              key={effect}
+              onClick={() => toggleEffect(effect)}
+              style={{
+                backgroundColor: selected ? '#C2B59B' : '#E6D8C3',
+                color: '#3B2F2F',
+                border: '1px solid #3B2F2F',
+                padding: '0.5rem 1rem',
+                borderRadius: '0.25rem',
+                textAlign: 'left',
+                width: '100%',
+                fontWeight: 'bold',
+                display: 'flex',
+                alignItems: 'center',
+                minHeight: '40px',
+                height: '40px',
+                marginBottom: '0.0rem',
+                transition: 'background-color 0.2s, border-color 0.2s',
+              }}
+            >
+              {selected ? (
+                <img
+                  src="/Oblivion-Checkmark.png"
+                  alt="selected"
+                  style={{
+                    width: '25px',
+                    height: '25px',
+                    marginRight: '0.25rem',
+                    position: 'relative',
+                    top: '2px',
+                  }}
+                />
+              ) : (
+                <span
+                  style={{
+                    display: 'inline-block',
+                    width: '25px',
+                    height: '25px',
+                    marginRight: '0.25rem',
+                    visibility: 'hidden',
+                  }}
+                >
+                  ✓
+                </span>
+              )}
+              {effect}
+            </button>
+          );
+        })
+      ) : (
+        <p>No effects match your search.</p>
+      )}
     </div>
   </div>
 );

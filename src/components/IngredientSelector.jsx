@@ -24,31 +24,75 @@ export default function IngredientSelector({ onSelectionChange }) {
   );
 
   return (
-    <div className="space-y-2 max-h-[600px] overflow-y-auto border p-4 rounded">
+    <div style={{ border: "1px solid #ccc", padding: "1rem", borderRadius: "0.5rem" }}>
       {/* Search Bar */}
       <input
         type="text"
         placeholder="Search ingredients..."
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        className="w-full p-2 border rounded mb-4"
+        style={{
+          width: "80%",
+          minHeight: "50",
+          padding: "0.4rem",
+          border: "1px solid #ccc",
+          borderRadius: "0.25rem",
+          marginBottom: "1rem",
+        }}
       />
 
-      {/* Filtered Ingredient List */}
-      {filteredIngredients.length > 0 ? (
-        filteredIngredients.map((ingredient) => (
-          <div key={ingredient} className="flex items-center justify-between">
-            <span>{ingredient}</span>
-            <div className="flex items-center space-x-2">
-              <Button onClick={() => updateQuantity(ingredient, -1)}>-</Button>
-              <span>{inventory[ingredient] || 0}</span>
-              <Button onClick={() => updateQuantity(ingredient, 1)}>+</Button>
-            </div>
-          </div>
-        ))
-      ) : (
-        <p>No ingredients match your search.</p>
-      )}
+      {/* Scrollable Ingredient List */}
+      <div style={{
+        maxHeight: "600px",
+        overflowY: "auto",
+        border: "1px solid grey",
+        padding: "0.5rem",
+      }}>
+        {filteredIngredients.length > 0 ? (
+          filteredIngredients.map((ingredient) => {
+            const quantity = inventory[ingredient] || 0;
+            const isSelected = quantity > 0;
+
+            return (
+              <div
+                key={ingredient}
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "1fr auto auto auto",
+                  alignItems: "center",
+                  gap: "0.5rem",
+                  backgroundColor: isSelected ? '#C2B59B' : '#E6D8C3',
+                  color: '#3B2F2F',
+                  border: '1px solid #3B2F2F',
+                  padding: '0.5rem 1rem',
+                  borderRadius: '0.25rem',
+                  fontWeight: 'bold',
+                  minHeight: '20px',
+                  height: '20px',
+                  marginBottom: "0.0rem",
+                }}
+              >
+                <span style={{ textAlign: "right" }}>{ingredient}</span>
+                <button
+                  onClick={() => updateQuantity(ingredient, -1)}
+                  style={{ padding: '0.25rem 0.5rem', fontSize: '0.75rem', lineHeight: '1' }}
+                >
+                  -
+                </button>
+                <span>{quantity}</span>
+                <button
+                  onClick={() => updateQuantity(ingredient, 1)}
+                  style={{ padding: '0.25rem 0.5rem', fontSize: '0.75rem', lineHeight: '1' }}
+                >
+                  +
+                </button>
+              </div>
+            );
+          })
+        ) : (
+          <p>No ingredients match your search.</p>
+        )}
+      </div>
     </div>
   );
 }

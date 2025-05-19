@@ -27,7 +27,7 @@ export default function App() {
       <h1 className="text-2xl font-bold mb-4">Oblivion Alchemy Calculator</h1>
 
       {/* Horizontal 3-Panel Layout */}
-      <div className="flex gap-4">
+      <div className="flex gap-10">
         {/* Left: Ingredient Selector */}
         <div className="flex-1 border rounded p-4">
           <h2 className="text-xl mb-2">Ingredients</h2>
