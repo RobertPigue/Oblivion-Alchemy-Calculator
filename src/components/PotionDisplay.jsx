@@ -34,7 +34,7 @@ export default function PotionDisplay({ potions }) {
         {Object.keys(potions).length > 0 ? (
           <div style={{ margin: 0, padding: 0 }}>
             {Object.entries(potions).map(([label, groups], index) => (
-              <div key={index} style={{ margin: 0, padding: 0 }}>
+              <div key={index} style={{ margin: 0, padding: 0, marginBottom: "0.25rem", }}>
                 <button
                   onClick={() => toggleOpen(index)}
                   style={{
