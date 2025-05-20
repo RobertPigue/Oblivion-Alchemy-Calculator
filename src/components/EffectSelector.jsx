@@ -40,11 +40,13 @@ export default function EffectSelector({ onSelectionChange, inventory }) {
           border: "1px solid #ccc",
           borderRadius: "0.25rem",
           marginBottom: "1rem",
+          backgroundColor:"#C2B59B",
+          color: "#3B2F2F"
         }}
       />
 
       {/* Scrollable Effects List */}
-      <div style={{ maxHeight: "618px", overflowY: "auto", paddingRight: "0.5rem" }}>
+      <div style={{ maxHeight: "660px", minWidth: "270px", overflowY: "auto", border: "1px solid grey", paddingRight: "0.5rem" }}>
         {filteredEffects.length > 0 ? (
           filteredEffects.map((effect) => {
             const selected = selectedEffects.includes(effect);

@@ -57,7 +57,21 @@
   --sidebar-border: oklch(0.923 0.003 48.717);
   --sidebar-ring: oklch(0.709 0.01 56.259);
 }
+::-webkit-scrollbar {
+  width: 20px;
+}
 
+::-webkit-scrollbar-track {
+  background: linear-gradient(to right, transparent 3px, #e2d9c6 10px, transparent 3px);
+}
+
+::-webkit-scrollbar-thumb {
+  background: url('/public/Scrollbar.png'); /* adjust path */
+  background-size: 40px 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 8px;
+}
 a {
   font-weight: 500;
   color: #646cff;
@@ -74,6 +88,8 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  color: white
+  
 }
 
 h1 {
@@ -86,8 +102,12 @@ h2 {
   line-height: 0;
   font-family: 'Kingthings Petrock', serif;
 }
-
-
+input::placeholder {
+  color: #3B2F2F;
+}
+ul {
+  list-style: disc outside;
+}
 
 @media (prefers-color-scheme: light) {
   :root {

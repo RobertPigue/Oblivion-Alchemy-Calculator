@@ -55,6 +55,8 @@ export default function IngredientSelector({ onSelectionChange }) {
           border: "1px solid #ccc",
           borderRadius: "0.25rem",
           marginBottom: "0.5rem",
+          backgroundColor:"#C2B59B",
+          color: "#3B2F2F"
         }}
       />
 
@@ -95,6 +97,7 @@ export default function IngredientSelector({ onSelectionChange }) {
       {/* Scrollable Ingredient List */}
       <div style={{
         maxHeight: "600px",
+        minWidth:"400px", //so it does not collapse on searching for none
         overflowY: "auto",
         border: "1px solid grey",
         padding: "0.5rem",
