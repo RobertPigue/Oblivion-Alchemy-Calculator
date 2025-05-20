@@ -1,14 +1,12 @@
 import { useState } from "react";
-import { Button } from "@/ui/button";  // If you have shadcn button
-import { INGREDIENTS, EFFECTS } from "@/lib/IngredientData";
-//import { EFFECTS, INGREDIENTS } from "../lib/IngredientData";
-// Example list, replace with your real data or import from lib
+import { INGREDIENTS } from "@/lib/IngredientData";
 
-const Selectable_INGREDIENTS = Object.keys(INGREDIENTS)
+const Selectable_INGREDIENTS = Object.keys(INGREDIENTS);
 
 export default function IngredientSelector({ onSelectionChange }) {
   const [inventory, setInventory] = useState({});
   const [searchQuery, setSearchQuery] = useState("");
+  const [flashButton, setFlashButton] = useState(null);
 
   const updateQuantity = (ingredient, amount) => {
     const newInventory = {
@@ -19,7 +17,26 @@ export default function IngredientSelector({ onSelectionChange }) {
     onSelectionChange(newInventory);
   };
 
-  const filteredIngredients = Selectable_INGREDIENTS.filter((ingredient) =>
+  const handleClearAll = () => {
+    const cleared = Object.fromEntries(Selectable_INGREDIENTS.map(ing => [ing, 0]));
+    setInventory(cleared);
+    onSelectionChange(cleared);
+    triggerFlash("clear");
+  };
+
+  const handleAddOneToAll = () => {
+    const updated = Object.fromEntries(Selectable_INGREDIENTS.map(ing => [ing, (inventory[ing] || 0) + 1]));
+    setInventory(updated);
+    onSelectionChange(updated);
+    triggerFlash("add");
+  };
+
+  const triggerFlash = (type) => {
+    setFlashButton(type);
+    setTimeout(() => setFlashButton(null), 200);
+  };
+
+  const filteredIngredients = Selectable_INGREDIENTS.filter(ingredient =>
     ingredient.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -37,9 +54,43 @@ export default function IngredientSelector({ onSelectionChange }) {
           padding: "0.4rem",
           border: "1px solid #ccc",
           borderRadius: "0.25rem",
-          marginBottom: "1rem",
+          marginBottom: "0.5rem",
         }}
       />
+
+      {/* Control Buttons */}
+      <div style={{ display: "flex", gap: "0.5rem", marginBottom: "1rem" }}>
+        <button
+          onClick={handleClearAll}
+          style={{
+            flex: 1,
+            backgroundColor: flashButton === "clear" ? '#C2B59B' : '#E6D8C3',
+            color: '#3B2F2F',
+            border: '1px solid #3B2F2F',
+            padding: '0.4rem 0.5rem',
+            borderRadius: '0.25rem',
+            fontWeight: 'bold',
+            transition: 'background-color 0.2s',
+          }}
+        >
+          Clear Ingredients
+        </button>
+        <button
+          onClick={handleAddOneToAll}
+          style={{
+            flex: 1,
+            backgroundColor: flashButton === "add" ? '#C2B59B' : '#E6D8C3',
+            color: '#3B2F2F',
+            border: '1px solid #3B2F2F',
+            padding: '0.4rem 0.5rem',
+            borderRadius: '0.25rem',
+            fontWeight: 'bold',
+            transition: 'background-color 0.2s',
+          }}
+        >
+          Add One to All
+        </button>
+      </div>
 
       {/* Scrollable Ingredient List */}
       <div style={{

@@ -151,3 +151,18 @@ export function labelPotions(potions) {
 
   return labeled;
 }
+//Function to count effects in ingredients to display in effect selector
+export function countEffectsInInventory(inventory) {
+  const effectCounts = {};
+
+  for (const ingredient of Object.keys(inventory)) {
+    if (inventory[ingredient] <= 0) continue;  // skip if player has none
+
+    const effects = INGREDIENTS[ingredient] || [];
+    for (const effect of effects) {
+      effectCounts[effect] = (effectCounts[effect] || 0) + 1;
+    }
+  }
+
+  return effectCounts;  // { "Burden": 2, "Restore Health": 5, ... }
+}

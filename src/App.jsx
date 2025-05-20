@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import IngredientSelector from "@/components/IngredientSelector";
 import EffectSelector from "@/components/EffectSelector";
+import PotionDisplay from "@/components/PotionDisplay";
 import { createMapping, findPotions, labelPotions } from "@/lib/alchemyengine";
 
 // Pre-generate all skill maps (1-4)
@@ -24,7 +25,7 @@ export default function App() {
 
   return (
     <div className="p-4 space-y-6">
-      <h1 className="text-2xl font-bold mb-4">Oblivion Alchemy Calculator</h1>
+      <h1 className="text-2xl font-petrock mb-4">Oblivion Alchemy Calculator</h1>
 
       {/* Horizontal 3-Panel Layout */}
       <div className="flex gap-10">
@@ -36,29 +37,14 @@ export default function App() {
 
         {/* Center: Effect Selector (UI Only) */}
         <div className="flex-1 border rounded p-4">
-          <h2 className="text-xl mb-2">Effects</h2>
-          <EffectSelector onSelectionChange={setSelectedEffects} />
+          <h2 className="text-xl mb-2">Filters</h2>
+          <EffectSelector onSelectionChange={setSelectedEffects} inventory={inventory} />
         </div>
 
         {/* Right: Potions */}
         <div className="flex-1 border rounded p-4">
           <h2 className="text-xl mb-2">Possible Potions</h2>
-          {Object.keys(potions).length > 0 ? (
-            <ul className="space-y-2">
-              {Object.entries(potions).map(([label, groups], index) => (
-                <li key={index}>
-                  <strong>{label}</strong>
-                  <ul className="list-disc pl-5">
-                    {groups.map((group, groupIndex) => (
-                      <li key={groupIndex}>{group.join(", ")}</li>
-                    ))}
-                  </ul>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>No valid potions found.</p>
-          )}
+          <PotionDisplay potions={potions} />
         </div>
       </div>
     </div>
