@@ -44,7 +44,7 @@ export default function App() {
         {/* Right: Potions */}
         <div className="flex-1 border rounded p-4">
           <h2 className="text-xl mb-2">Possible Potions</h2>
-          <PotionDisplay potions={potions} />
+          <PotionDisplay potions={potions} selectedEffects={selectedEffects} />
         </div>
       </div>
     </div>
